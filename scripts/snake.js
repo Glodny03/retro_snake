@@ -55,6 +55,20 @@
         };
     };
 
+    // Create the initial snake with a given length
+    function createInitialSnake(snakeLength) {
+        const startX = canvas.width / 2;
+        const startY = canvas.height / 2;
+
+        for (let i = 0; i < snakeLength; i++) {
+            snake.push({
+                x: startX + i * snakeElementSize,
+                y: startY
+            });
+        };
+    };
+
+
     // Initialize the game canvas, event listeners, and main loop
     function startGame() {
 
