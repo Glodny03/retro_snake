@@ -1,0 +1,11 @@
+:root {
+    --primary-color: #91C04C;
+    --secondary-color: #2b3b14;
+}
+
+@font-face {
+    font-family: 'Equilibrium';
+    src: url('./fonts/CHE-EQUI.TTF') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
