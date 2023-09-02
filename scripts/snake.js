@@ -374,6 +374,11 @@
         };
     };
 
+    // Draw current points on the canvas
+    function drawScore() {
+        document.querySelector(".score").innerHTML = `Score ${points}`;
+    };
+
     // Initialize the game canvas, event listeners, and main loop
     function startGame() {
 
