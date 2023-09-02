@@ -68,6 +68,23 @@
         };
     };
 
+    // Draw the snake on the canvas
+    function drawSnake() {
+        context2d.strokeStyle = "#243013";
+        context2d.lineWidth = 3;
+
+        // Determine the rounding of corners
+        const cornerRadius = 7.5;
+        context2d.fillStyle = "#243013";
+
+        snake.forEach(el => {
+            context2d.beginPath();
+            roundedRect(context2d, el.x, el.y, snakeElementSize, snakeElementSize, cornerRadius);
+            context2d.fill();
+            context2d.stroke();
+            context2d.closePath();
+        });
+    };
 
     // Initialize the game canvas, event listeners, and main loop
     function startGame() {
