@@ -225,6 +225,65 @@
         };
     };
 
+    document.addEventListener("keyup", function (event) {
+        lastPressedKey = null;
+    });
+
+    // Touch event handling
+    let touchStartX = null;
+    let touchStartY = null;
+
+    document.addEventListener("touchstart", function (event) {
+        // Store the initial touch coordinates
+        touchStartX = event.touches[0].clientX;
+        touchStartY = event.touches[0].clientY;
+    });
+
+    document.addEventListener("touchend", function (event) {
+        const touchEndX = event.changedTouches[0].clientX;
+        const touchEndY = event.changedTouches[0].clientY;
+        const deltaX = touchEndX - touchStartX;
+        const deltaY = touchEndY - touchStartY;
+
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+            // Horizontal movement
+            if (deltaX > 0) {
+                // Right movement
+                snakeVelocityX = snakeElementSize;
+                snakeVelocityY = 0;
+            } else {
+                // Left movement
+                snakeVelocityX = -snakeElementSize;
+                snakeVelocityY = 0;
+            };
+        } else {
+            // Vertical movement
+            if (deltaY > 0) {
+                // Down movement
+                snakeVelocityX = 0;
+                snakeVelocityY = snakeElementSize;
+            } else {
+                // Up movement
+                snakeVelocityX = 0;
+                snakeVelocityY = -snakeElementSize;
+            };
+        };
+
+        pauseGame = false;
+    });
+
+    // Canvas scaling
+    function resizeCanvas() {
+        const canvasContainer = document.querySelector(".game_wrapper");
+        canvas.width = canvasContainer.clientWidth;
+        canvas.height = canvasContainer.clientHeight;
+    };
+
+    // Call the resizeCanvas() function when the window size changes
+    window.addEventListener("resize", resizeCanvas);
+
+    
+
     // Initialize the game canvas, event listeners, and main loop
     function startGame() {
 
