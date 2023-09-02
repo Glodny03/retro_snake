@@ -340,6 +340,15 @@
         context2d.restore();
     };
 
+    // Check if the snake collides with the walls
+    function checkWallsCollision() {
+        const head = snake[0];
+        // Check if the snake's head hits the canvas boundaries
+        if (head.x > canvas.width - snakeElementSize || head.x < 0 || head.y > canvas.height - snakeElementSize || head.y < 0) {
+            resetGame();
+        };
+    };
+
     // Initialize the game canvas, event listeners, and main loop
     function startGame() {
 
