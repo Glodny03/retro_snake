@@ -312,6 +312,15 @@
         foodSound.play(); // Odtwarzaj dźwięk przy generowaniu nowego jedzenia
     };
 
+    // Helper function to check if food position is inside the snake
+    function isFoodInsideSnake(foodPosition) {
+        for (let i = 0; i < snake.length; i++) {
+            if (foodPosition.x === snake[i].x && foodPosition.y === snake[i].y) {
+                return true;
+            };
+        };
+        return false;
+    };
 
     // Initialize the game canvas, event listeners, and main loop
     function startGame() {
