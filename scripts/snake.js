@@ -122,6 +122,17 @@
         gameOverSound.play();
     };
 
+    // Move the snake by updating its position
+    function moveSnake(snakeVelocityX, snakeVelocityY) {
+        const newHead = {
+            x: snake[0].x + snakeVelocityX,
+            y: snake[0].y + snakeVelocityY
+        };
+
+        snake.unshift(newHead);
+        snake.pop();
+    };
+
     // Initialize the game canvas, event listeners, and main loop
     function startGame() {
 
