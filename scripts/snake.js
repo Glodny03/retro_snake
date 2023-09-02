@@ -133,6 +133,78 @@
         snake.pop();
     };
 
+
+     // Add a variable to store the last used key
+     let lastPressedKey = null;
+
+     // Handling keyboard input for controlling the snake's movement
+     function handleKeyDown(event) {
+         const keyCodes = {
+             leftArrow: 37,
+             A: 65,
+             upArrow: 38,
+             W: 87,
+             rightArrow: 39,
+             D: 68,
+             downArrow: 40,
+             S: 83,
+         };
+ 
+         const directions = {
+             left: {
+                 x: -snakeElementSize,
+                 y: 0
+             },
+             up: {
+                 x: 0,
+                 y: -snakeElementSize
+             },
+             right: {
+                 x: snakeElementSize,
+                 y: 0
+             },
+             down: {
+                 x: 0,
+                 y: snakeElementSize
+             },
+         };
+ 
+         const directionKeys = Object.fromEntries(
+             Object.entries(keyCodes).map(([key, code]) => [
+                 code,
+                 directions[key.slice(0, -5).toLowerCase()],
+             ])
+         );
+ 
+         if (Object.values(keyCodes).includes(event.keyCode)) {
+             pauseGame = false;
+         };
+ 
+         if (!pauseGame) {
+             currentRound++;
+ 
+             const newDirection = directionKeys[event.keyCode];
+ 
+             if (newDirection) {
+                 // Check if another key is already pressed
+                 if (lastPressedKey !== null && lastPressedKey !== event.keyCode) {
+                     return; // Ignore the new key if another one is already pressed
+                 };
+ 
+                 lastPressedKey = event.keyCode; // Update the last pressed key
+ 
+                 const canChangeDirection =
+                     (newDirection.x !== 0 && snakeVelocityX === 0) ||
+                     (newDirection.y !== 0 && snakeVelocityY === 0);
+ 
+                 if (canChangeDirection) {
+                     snakeVelocityX = newDirection.x;
+                     snakeVelocityY = newDirection.y;
+                 };
+             };
+         };
+     };
+
     // Initialize the game canvas, event listeners, and main loop
     function startGame() {
 
