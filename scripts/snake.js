@@ -381,7 +381,31 @@
 
     // Initialize the game canvas, event listeners, and main loop
     function startGame() {
+        canvas = document.getElementById("canvas");
+        context2d = canvas.getContext("2d");
+        document.addEventListener("keydown", handleKeyDown); // Listen for key events
+        resetGame(); // Set up initial game state
+        const menu = document.getElementById("menu");
 
+        if (menu.style.display === "none" || menu.style.display === "") {
+            menu.style.display = "block";
+            canvas.style.display = "none";
+        } else {
+            menu.style.display = "none";
+            canvas.style.display = "block";
+            setInterval(() => {
+                clearGameCanvas();
+                checkWallsCollision();
+                checkSelfCollision();
+                checkFoodCollision();
+                if (!pauseGame) moveSnake(snakeVelocityX, snakeVelocityY);
+                drawScore();
+                drawFood();
+                drawSnake();
+            }, gameLoopIntervalMs);
+
+            resetGame();
+        }
     }
 
     document.querySelector(".play-button").addEventListener("click", startGame);
