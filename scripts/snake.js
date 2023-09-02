@@ -184,63 +184,29 @@
     // Handling keyboard input for controlling the snake's movement
     function handleKeyDown(event) {
         const keyCodes = {
-            leftArrow: 37,
-            A: 65,
-            upArrow: 38,
-            W: 87,
-            rightArrow: 39,
-            D: 68,
-            downArrow: 40,
-            S: 83,
+            ArrowLeft: { x: -snakeElementSize, y: 0 },
+            ArrowUp: { x: 0, y: -snakeElementSize },
+            ArrowRight: { x: snakeElementSize, y: 0 },
+            ArrowDown: { x: 0, y: snakeElementSize },
         };
-
-        const directions = {
-            left: {
-                x: -snakeElementSize,
-                y: 0
-            },
-            up: {
-                x: 0,
-                y: -snakeElementSize
-            },
-            right: {
-                x: snakeElementSize,
-                y: 0
-            },
-            down: {
-                x: 0,
-                y: snakeElementSize
-            },
-        };
-
-        const directionKeys = Object.fromEntries(
-            Object.entries(keyCodes).map(([key, code]) => [
-                code,
-                directions[key.slice(0, -5).toLowerCase()],
-            ])
-        );
-
-        if (Object.values(keyCodes).includes(event.keyCode)) {
-            pauseGame = false;
-        };
-
-        if (!pauseGame) {
-            currentRound++;
-
-            const newDirection = directionKeys[event.keyCode];
-
-            if (newDirection) {
+    
+        if (keyCodes.hasOwnProperty(event.key)) {
+            const newDirection = keyCodes[event.key];
+    
+            if (!pauseGame) {
+                currentRound++;
+    
                 // Check if another key is already pressed
-                if (lastPressedKey !== null && lastPressedKey !== event.keyCode) {
+                if (lastPressedKey !== null && lastPressedKey !== event.key) {
                     return; // Ignore the new key if another one is already pressed
-                };
-
-                lastPressedKey = event.keyCode; // Update the last pressed key
-
+                }
+    
+                lastPressedKey = event.key; // Update the last pressed key
+    
                 const canChangeDirection =
                     (newDirection.x !== 0 && snakeVelocityX === 0) ||
                     (newDirection.y !== 0 && snakeVelocityY === 0);
-
+    
                 if (canChangeDirection) {
                     snakeVelocityX = newDirection.x;
                     snakeVelocityY = newDirection.y;
@@ -248,6 +214,7 @@
             };
         };
     };
+    
 
     document.addEventListener("keyup", function (event) {
         lastPressedKey = null;
