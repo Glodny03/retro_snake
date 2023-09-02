@@ -101,6 +101,27 @@
         context.closePath();
     };
 
+    // Reset the game to its initial state
+    function resetGame() {
+        const menu = document.getElementById("menu");
+        if (!menu || menu.style.display === "none") {
+            if (points >= bestScore) {
+                bestScore = points;
+                document.querySelector(".best_score").innerHTML = `Record ${bestScore}`;
+            };
+        };
+
+        snake = [];
+        currentRound = 0;
+        snakeVelocityX = 0;
+        snakeVelocityY = 0;
+        points = 0;
+        createInitialSnake(initialSnakeLength);
+        generateRandomFood();
+        pauseGame = true;
+        gameOverSound.play();
+    };
+
     // Initialize the game canvas, event listeners, and main loop
     function startGame() {
 
