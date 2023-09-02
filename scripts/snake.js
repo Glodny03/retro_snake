@@ -282,7 +282,36 @@
     // Call the resizeCanvas() function when the window size changes
     window.addEventListener("resize", resizeCanvas);
 
-    
+    // Generate random food position within canvas boundaries
+    function generateRandomFood() {
+
+        const minDistanceFromEdge = 20;
+
+        // Helper function to get a random coordinate within a range and snapped to snakeElementSize
+        function getRandomCoordinateInRange(min, max) {
+            return Math.floor((Math.random() * (max - min) + min) / snakeElementSize) * snakeElementSize;
+        };
+
+
+        // Generate a set of coordinates for the food
+        let foodPosition = {
+            x: getRandomCoordinateInRange(minDistanceFromEdge, canvas.width - minDistanceFromEdge),
+            y: getRandomCoordinateInRange(minDistanceFromEdge, canvas.height - minDistanceFromEdge)
+        };
+
+        // Check if the generated food position is inside the snake
+        while (isFoodInsideSnake(foodPosition)) {
+            foodPosition = {
+                x: getRandomCoordinateInRange(minDistanceFromEdge, canvas.width - minDistanceFromEdge),
+                y: getRandomCoordinateInRange(minDistanceFromEdge, canvas.height - minDistanceFromEdge)
+            };
+        };
+
+        food.x = foodPosition.x;
+        food.y = foodPosition.y;
+        foodSound.play(); // Odtwarzaj dźwięk przy generowaniu nowego jedzenia
+    };
+
 
     // Initialize the game canvas, event listeners, and main loop
     function startGame() {
