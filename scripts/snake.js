@@ -322,6 +322,24 @@
         return false;
     };
 
+    // Draw the food on the canvas
+    function drawFood() {
+        foodRotationAngle += 10 * Math.PI / 180;
+        context2d.save();
+        context2d.translate(food.x + snakeElementSize / 2, food.y + snakeElementSize / 2);
+        context2d.rotate(foodRotationAngle);
+
+        if (foodSvg.complete) {
+            context2d.drawImage(foodSvg, -snakeElementSize / 2, -snakeElementSize / 2, snakeElementSize, snakeElementSize);
+        } else {
+            foodSvg.onload = function () {
+                context2d.drawImage(foodSvg, -snakeElementSize / 2, -snakeElementSize / 2, snakeElementSize, snakeElementSize);
+            };
+        };
+
+        context2d.restore();
+    };
+
     // Initialize the game canvas, event listeners, and main loop
     function startGame() {
 
