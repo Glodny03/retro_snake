@@ -29,6 +29,30 @@
     let currentRound = 0;
     let foodRotationAngle = 0;
 
+    function handleResize() {
+        // Get the warning message element
+        const message = document.querySelector(".mobile-warning");
+
+        // Check if the window width is less than 650 pixels (mobile view)
+        if (window.innerWidth < 650) {
+            // If the warning message doesn't exist, create and display it
+            if (!message) {
+                const message = document.createElement("div");
+                message.className = "mobile-warning";
+                message.textContent = "This game is only available on desktop!";
+                document.body.appendChild(message);
+            }
+        } else if (message) {
+            // If the window width is greater than or equal to 650 pixels and the message exists, remove it
+            document.body.removeChild(message);
+        };
+    };
+    
+    handleResize();
+
+    // Listen for window resize events and invoke the handleResize function
+    window.addEventListener("resize", handleResize);
+
     // Function to clear the canvas area
     function clearGameCanvas() {
         context2d.fillStyle = "#91C04C";
@@ -229,58 +253,6 @@
         lastPressedKey = null;
     });
 
-    // Touch event handling
-    let touchStartX = null;
-    let touchStartY = null;
-
-    document.addEventListener("touchstart", function (event) {
-        // Store the initial touch coordinates
-        touchStartX = event.touches[0].clientX;
-        touchStartY = event.touches[0].clientY;
-    });
-
-    document.addEventListener("touchend", function (event) {
-        const touchEndX = event.changedTouches[0].clientX;
-        const touchEndY = event.changedTouches[0].clientY;
-        const deltaX = touchEndX - touchStartX;
-        const deltaY = touchEndY - touchStartY;
-
-        if (Math.abs(deltaX) > Math.abs(deltaY)) {
-            // Horizontal movement
-            if (deltaX > 0) {
-                // Right movement
-                snakeVelocityX = snakeElementSize;
-                snakeVelocityY = 0;
-            } else {
-                // Left movement
-                snakeVelocityX = -snakeElementSize;
-                snakeVelocityY = 0;
-            };
-        } else {
-            // Vertical movement
-            if (deltaY > 0) {
-                // Down movement
-                snakeVelocityX = 0;
-                snakeVelocityY = snakeElementSize;
-            } else {
-                // Up movement
-                snakeVelocityX = 0;
-                snakeVelocityY = -snakeElementSize;
-            };
-        };
-
-        pauseGame = false;
-    });
-
-    // Canvas scaling
-    function resizeCanvas() {
-        const canvasContainer = document.querySelector(".game_wrapper");
-        canvas.width = canvasContainer.clientWidth;
-        canvas.height = canvasContainer.clientHeight;
-    };
-
-    // Call the resizeCanvas() function when the window size changes
-    window.addEventListener("resize", resizeCanvas);
 
     // Generate random food position within canvas boundaries
     function generateRandomFood() {
@@ -395,6 +367,7 @@
             canvas.style.display = "block";
             setInterval(() => {
                 clearGameCanvas();
+                handleResize();
                 checkWallsCollision();
                 checkSelfCollision();
                 checkFoodCollision();
