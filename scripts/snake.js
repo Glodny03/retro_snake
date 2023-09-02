@@ -29,6 +29,32 @@
     let currentRound = 0;
     let foodRotationAngle = 0;
 
+    // Function to clear the canvas area
+    function clearGameCanvas() {
+        context2d.fillStyle = "#91C04C";
+        context2d.fillRect(0, 0, canvas.width, canvas.height);
+
+        // Draw grid lines
+        context2d.strokeStyle = "#81a945";
+        context2d.lineWidth = 0.5;
+
+        // Draw vertical grid lines
+        for (let x = 0; x <= canvas.width; x += snakeElementSize) {
+            context2d.beginPath();
+            context2d.moveTo(x, 0);
+            context2d.lineTo(x, canvas.height);
+            context2d.stroke();
+        };
+
+        // Draw horizontal grid lines
+        for (let y = 0; y <= canvas.height; y += snakeElementSize) {
+            context2d.beginPath();
+            context2d.moveTo(0, y);
+            context2d.lineTo(canvas.width, y);
+            context2d.stroke();
+        };
+    };
+
     // Initialize the game canvas, event listeners, and main loop
     function startGame() {
 
