@@ -43,3 +43,53 @@ canvas {
     text-transform: uppercase;
     font-size: 34px;
 }
+
+.menu {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    display: none;
+}
+
+.menu-title {
+    font-size: 48px;
+    color: white;
+    margin-bottom: 20px;
+}
+
+.play-button {
+    font-size: 24px;
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.play-button:hover {
+    background-color: #91B04C;
+}
+
+.sound_toggle {
+    cursor: pointer;
+    position: fixed;
+    border: none;
+    background-color: transparent;
+    outline: none;
+    top: 18px;
+    right: 18px;
+    width: 32px;
+    height: 32px;
+}
+
+.sound_toggle img {
+    width: 100%;
+    height: 100%;
+}
