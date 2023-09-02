@@ -349,6 +349,31 @@
         };
     };
 
+    // Check if the snake collides with itself
+    function checkSelfCollision() {
+        // Skip collision check in the first round
+        if (currentRound <= 4) return;
+
+        // Check collision with the rest of the snake's body
+        for (let i = 1; i < snake.length; i++) {
+            if (snake[i].x === snake[0].x && snake[i].y === snake[0].y) {
+                resetGame();
+                break;
+            };
+        };
+    };
+
+    // Check for snake and food collision
+    function checkFoodCollision() {
+        if (food.x === snake[0].x && food.y === snake[0].y) {
+            snake.push({
+                ...snake[snake.length - 1]
+            }); // Extend the snake
+            generateRandomFood(); // Generate new food
+            points += 5; // Increase points
+        };
+    };
+
     // Initialize the game canvas, event listeners, and main loop
     function startGame() {
 
