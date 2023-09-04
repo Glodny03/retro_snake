@@ -1,10 +1,10 @@
 (function () {
     // Load assets
-    const foodSound = new Audio('../assets/sounds/beep.mp3');
-    const gameOverSound = new Audio('../assets/sounds/over.mp3');
+    const foodSound = new Audio('./assets/sounds/beep.mp3');
+    const gameOverSound = new Audio('./assets/sounds/over.mp3');
 
     const foodSvg = new Image();
-    foodSvg.src = '../assets/food.svg';
+    foodSvg.src = './assets/food.svg';
 
     // Initialize global variables
     const snakeElementSize = 25;
